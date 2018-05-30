@@ -36,29 +36,79 @@ public class PortalFragment extends Fragment {
     };
 
     private void webViewGoBack() {
-        mWebView.goBack();
+        webView.goBack();
     }
+//
+//    private WebView mWebView;
+//
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        mWebView.saveState(outState);
+//    }
+//
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        mWebView.restoreState(savedInstanceState);
+//    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        View v=inflater.inflate(R.layout.fragment_portal, container, false);
+//        mWebView = (WebView) v.findViewById(R.id.portal_webview);
+//
+//        // Enable Javascript
+//        WebSettings webSettings = mWebView.getSettings();
+//        webSettings.setJavaScriptEnabled(true);
+//        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+//        mWebView.setWebViewClient(new WebViewClient());
+//        mWebView.loadUrl("https://isased.telecom.kz/SKYDOCS/SkyDocs.nsf");
+//        mWebView.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK
+//                        && event.getAction() == MotionEvent.ACTION_UP
+//                        && mWebView.canGoBack()) {
+//                    handler.sendEmptyMessage(1);
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+//
+//
+//
+//        return v;
+//    }
 
-    private WebView mWebView;
+    private WebView webView;
+    private Bundle webViewBundle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_portal, container, false);
-        mWebView = (WebView) v.findViewById(R.id.portal_webview);
 
-        // Enable Javascript
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("https://google.com");
-        mWebView.setOnKeyListener(new View.OnKeyListener() {
+        View ll = inflater.inflate(R.layout.fragment_portal,
+                container, false);
+
+        webView = ll.findViewById(R.id.portal_webview);
+        webView.setWebViewClient(new WebViewClient());
+
+
+        if (webViewBundle == null) {
+            webView.loadUrl("https://isased.telecom.kz/SKYDOCS/SkyDocs.nsf");
+        } else {
+            webView.restoreState(webViewBundle);
+        }
+
+        webView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK
                         && event.getAction() == MotionEvent.ACTION_UP
-                        && mWebView.canGoBack()) {
+                        && webView.canGoBack()) {
                     handler.sendEmptyMessage(1);
                     return true;
                 }
@@ -66,10 +116,18 @@ public class PortalFragment extends Fragment {
             }
         });
 
+        return ll;
 
-
-        return v;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        webViewBundle = new Bundle();
+        webView.saveState(webViewBundle);
+    }
+
 
 
 

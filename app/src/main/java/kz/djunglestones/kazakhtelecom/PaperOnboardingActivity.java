@@ -43,18 +43,18 @@ public class PaperOnboardingActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences settings = this.getSharedPreferences("appInfo", 0);
-        boolean firstTime = settings.getBoolean("first_time", true);
-        if (firstTime) {
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("first_time", false);
-            editor.commit();
-
-        }else{
-            Intent mainIntent = new Intent(PaperOnboardingActivity.this,MainActivity.class);
-            startActivity(mainIntent);
-            finish();
-        }
+//        SharedPreferences settings = this.getSharedPreferences("appInfo", 0);
+//        boolean firstTime = settings.getBoolean("first_time", true);
+//        if (firstTime) {
+//            SharedPreferences.Editor editor = settings.edit();
+//            editor.putBoolean("first_time", false);
+//            editor.commit();
+//
+//        }else{
+//            Intent mainIntent = new Intent(PaperOnboardingActivity.this,MainActivity.class);
+//            startActivity(mainIntent);
+//            finish();
+//        }
     }
 
 
@@ -62,11 +62,11 @@ public class PaperOnboardingActivity extends AppCompatActivity {
     private ArrayList<PaperOnboardingPage> getDataForOnboarding() {
         // prepare data
         PaperOnboardingPage scr1 = new PaperOnboardingPage("ДИС", "Теперь портал в мобильном приложении",
-                Color.parseColor("#678FB4"), R.drawable.first, R.drawable.tablet_24dp);
+                Color.parseColor("#678FB4"), R.drawable.obj1, R.drawable.tablet_24dp);
         PaperOnboardingPage scr2 = new PaperOnboardingPage("Почта", "В добавок для удобства отдельная вклдака для почты",
-                Color.parseColor("#65B0B4"), R.drawable.first, R.drawable.email);
+                Color.parseColor("#65B0B4"), R.drawable.obj2, R.drawable.email);
         PaperOnboardingPage scr3 = new PaperOnboardingPage("Защищенность", "Аутентификация при каждой сессии",
-                Color.parseColor("#9B90BC"), R.drawable.first, R.drawable.safety);
+                Color.parseColor("#9B90BC"), R.drawable.obj3, R.drawable.safety);
 
         ArrayList<PaperOnboardingPage> elements = new ArrayList<>();
         elements.add(scr1);

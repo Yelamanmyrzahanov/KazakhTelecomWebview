@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         portalFragment = new PortalFragment();
         emailFragment = new EmailFragment();
+        replaceFragment(portalFragment);
 
         mainBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

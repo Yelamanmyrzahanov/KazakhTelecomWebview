@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,8 +19,6 @@ import android.webkit.WebViewClient;
  * A simple {@link Fragment} subclass.
  */
 public class EmailFragment extends Fragment {
-
-
     public EmailFragment() {
         // Required empty public constructor
     }
@@ -37,31 +36,35 @@ public class EmailFragment extends Fragment {
     };
 
     private void webViewGoBack() {
-        mWebView.goBack();
+        webView.goBack();
     }
 
-    private WebView mWebView;
+    private WebView webView;
+    private Bundle webViewBundle1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v =inflater.inflate(R.layout.fragment_email,container,false);
-        mWebView = (WebView) v.findViewById(R.id.email_webview);
 
-        // Enable Javascript
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("https://google.com");
-        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("https://google.com");
-        mWebView.setOnKeyListener(new View.OnKeyListener() {
+        View ll = inflater.inflate(R.layout.fragment_portal,
+                container, false);
+
+        webView = ll.findViewById(R.id.portal_webview);
+        webView.setWebViewClient(new WebViewClient());
+
+
+        if (webViewBundle1 == null) {
+            webView.loadUrl("https://isased.telecom.kz/mail/bzhanabe.nsf/iNotes/Mail/?OpenDocument&Form=m_HomeView");
+        } else {
+            webView.restoreState(webViewBundle1);
+        }
+
+        webView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK
                         && event.getAction() == MotionEvent.ACTION_UP
-                        && mWebView.canGoBack()) {
+                        && webView.canGoBack()) {
                     handler.sendEmptyMessage(1);
                     return true;
                 }
@@ -69,9 +72,35 @@ public class EmailFragment extends Fragment {
             }
         });
 
-        return v;
+        return ll;
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        webViewBundle1 = new Bundle();
+        webView.saveState(webViewBundle1);
     }
 
 
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Log.i("onStart: ", "onStart: ");
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        Log.i("onResume: ", "onResume: ");
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        Log.i("onDestroy: ", "onDestroy: ");
+//    }
 }

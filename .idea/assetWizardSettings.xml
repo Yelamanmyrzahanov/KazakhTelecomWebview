@@ -34,8 +34,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/kztelecom.png" />
-                                      <entry key="foregroundLayerName" value="ic_launcher_foreground" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/Архив/Obj3.imageset/Obj3.png" />
+                                      <entry key="foregroundLayerName" value="third" />
                                       <entry key="outputName" value="splash_screen" />
                                     </map>
                                   </option>
