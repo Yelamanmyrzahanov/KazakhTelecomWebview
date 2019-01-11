@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         portalFragment = new PortalFragment();
         emailFragment = new EmailFragment();
-        replaceFragment(portalFragment);
+        replaceFragment(emailFragment);
 
         mainBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(emailFragment);
                         return true;
                     case R.id.portal_menu:
-                        replaceFragment(portalFragment);
+                        replaceFragment(emailFragment);
                         return true;
                     default:
                         return false;

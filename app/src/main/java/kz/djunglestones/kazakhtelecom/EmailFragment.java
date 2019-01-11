@@ -1,5 +1,6 @@
 package kz.djunglestones.kazakhtelecom;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,12 +14,13 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EmailFragment extends Fragment {
+public class EmailFragment extends Fragment{
     public EmailFragment() {
         // Required empty public constructor
     }
@@ -41,7 +43,9 @@ public class EmailFragment extends Fragment {
 
     private WebView webView;
     private Bundle webViewBundle1;
+    private Button button;
 
+    @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,13 +55,22 @@ public class EmailFragment extends Fragment {
 
         webView = ll.findViewById(R.id.portal_webview);
         webView.setWebViewClient(new WebViewClient());
+        button = ll.findViewById(R.id.buy_ticket);
+        webView.addJavascriptInterface(new JavaScriptInterface(getContext()), "Android");
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
 
         if (webViewBundle1 == null) {
-            webView.loadUrl("https://isased.telecom.kz/mail/bzhanabe.nsf/iNotes/Mail/?OpenDocument&Form=m_HomeView");
+            webView.loadUrl("https://qel.mobi/test-2");
+//            webView.getId();
         } else {
             webView.restoreState(webViewBundle1);
         }
+
+
+
+
 
         webView.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -71,6 +84,8 @@ public class EmailFragment extends Fragment {
                 return false;
             }
         });
+
+
 
         return ll;
 
